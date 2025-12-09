@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+body {
+	margin: 0px;
+}
+
+header {
+	background-color: aliceblue;
+	margin: 0px auto 20px;
+	padding: 5px;
+	text-align: center;
+}
+
+header h1 {
+	color: darkslategray;
+	font-size: 3em;
+}
+
+body > p {
+	margin: 5px 40px;
+}
+
+body > p#firstParagraph {
+	margin: 40px;
+}

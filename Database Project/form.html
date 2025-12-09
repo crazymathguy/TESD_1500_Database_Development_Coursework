@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--
+	This file is a basic submission form
+	
+	Author: Sean Briggs
+	Date:   2025-12-05
+
+	Filename: form.html
+	-->
+
+	<meta charset="utf-8" />
+	<title>Event Sign-Up Form</title>
+	<link href="styles.css" rel="stylesheet" />
+	<link href="form_styles.css" rel="stylesheet" />
+</head>
+
+<body>
+	<header><h1>Event Sign-Up</h1></header>
+	<form action="form_processed.php" method="post">
+		<table>
+			<tr>
+				<td>First Name*</td>
+				<td><input type="text" name="fName" required /></td>
+			</tr>
+			<tr>
+				<td>Last Name*</td>
+				<td><input type="text" name="lName" required /></td>
+			</tr>
+			<tr>
+				<td>Age*</td>
+				<td><input type="number" name="age" min="12" max="100" required /></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td><select name="gender">
+					<option></option>
+					<option value="m">Male</option>
+					<option value="f">Female</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>T-shirt size*</td>
+				<td><select name="tSize" required>
+					<option></option>
+					<option value="xs">XS</option>
+					<option value="s">S</option>
+					<option value="m">M</option>
+					<option value="l">L</option>
+					<option value="xl">XL</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Do you have allergies?</td>
+				<td><input type="checkbox" name="haveAllergies" /></td>
+			</tr>
+			<tr>
+				<td>If yes, please list</td>
+				<td><input type="text" name="allergies" /></td>
+			</tr>
+			<tfoot>
+				<tr>
+					<td colspan="2" style="text-align: center;"><input type="submit" value="Submit Order" /></td>
+				</tr>
+			</tfoot>
+		</table>
+	</form>
+</body>
+</html>
