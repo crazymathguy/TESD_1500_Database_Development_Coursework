@@ -20,6 +20,6 @@ body > p {
 	margin: 5px 40px;
 }
 
-body > p#firstParagraph {
+body > p:first-of-type {
 	margin: 40px;
 }
