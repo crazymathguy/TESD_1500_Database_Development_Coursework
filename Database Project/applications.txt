@@ -1,4 +1,8 @@
-Sean	Briggs	17	Male	Medium	None
-Charlotte	Briggs	12	Female	Extra small	None
-Thomas	Briggs	14	Male	Small	gluten
-sea	s	100	None	Extra Large	None
+Sean	Briggs	17	male	medium	none
+Thomas	Briggs	14	male	small	gluten
+Charlotte	Briggs	12	female	extra small	none
+Someone	Else	32	none	extra large	hay fever, peanuts
+Eve	Cox	14	female	small	none
+Leah	Cox	12	female	small	none
+Random	Person	42	female	large	sugar
+Random	Different Person	20	male	extra large	none

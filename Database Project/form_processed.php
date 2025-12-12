@@ -1,12 +1,6 @@
 <?php
 // Create variables
-$fName = $_POST['fName'];
-$lName = $_POST['lName'];
-$age = $_POST['age'];
-$gender = $_POST['gender'];
-$tSize = $_POST['tSize'];
-$haveAllergies = $_POST['haveAllergies'];
-$allergies = $_POST['allergies'];
+extract($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -22,43 +16,43 @@ $allergies = $_POST['allergies'];
 	-->
 
 	<meta charset="utf-8" />
-	<title>Sign-Up Form Submitted</title>
+	<title>Application Form Submitted</title>
 	<link href="styles.css" rel="stylesheet" />
 </head>
 
 <body>
-	<header><h1>Event Sign-Up</h1></header>
+	<header><h1>Event Application</h1></header>
 	<?php
 		switch ($gender) {
 			case '':
-				$gender = "None";
+				$gender = "none";
 				break;
 			case 'm':
-				$gender = "Male";
+				$gender = "male";
 				break;
 			case 'f':
-				$gender = "Female";
+				$gender = "female";
 				break;
 		}
 		switch ($tSize) {
 			case 'xs':
-				$tSize = "Extra small";
+				$tSize = "extra small";
 				break;
 			case 's':
-				$tSize = "Small";
+				$tSize = "small";
 				break;
 			case 'm':
-				$tSize = "Medium";
+				$tSize = "medium";
 				break;
 			case 'l':
-				$tSize = "Large";
+				$tSize = "large";
 				break;
 			case 'xl':
-				$tSize = "Extra Large";
+				$tSize = "extra large";
 		}
 
 		if (!$haveAllergies) {
-			$allergies = "None";
+			$allergies = "none";
 		}
 
 		$outputString = $fName."\t".$lName."\t".$age."\t".$gender."\t".$tSize."\t".$allergies."\n";
