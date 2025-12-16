@@ -45,13 +45,15 @@
 				<th>Last Name</th>
 				<th>Age</th>
 				<th>Gender</th>
+				<th>Phone Number</th>
+				<th>Email Address</th>
 				<th>T-Shirt Size</th>
 				<th>Allergies</th>
 			</tr>";
 		
 		for ($j = 0; $j < $numOfApplicants; $j++) {
 			echo "<tr>";
-			for ($k = 0; $k < 6;$k++) {
+			for ($k = 0; $k < 8;$k++) {
 				echo "<td>".$applicants[$j][$k]."</td>";
 			}
 			echo "</tr>";

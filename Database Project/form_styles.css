@@ -15,6 +15,10 @@ form table {
 	margin: 0px auto;
 }
 
+form tbody tr:first-of-type td {
+	padding-top: 20px;
+}
+
 form tr td:first-of-type {
 	text-align: right;
 }

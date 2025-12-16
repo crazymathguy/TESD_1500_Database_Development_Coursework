@@ -34,6 +34,18 @@ extract($_POST);
 				$gender = "female";
 				break;
 		}
+		if (preg_match('/^[0-9()\-\h]+$/', $phone) === 0) {
+			echo "<p><strong>You have not entered a valid phone number. ".
+				"Please return to the previous page and try again.</strong></p>";
+			exit;
+		}
+		$phone = preg_replace('/\D/', '', $phone);
+		$phone = "+1".$phone;
+		if (preg_match('/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z0-9_\-\.]+$/', $email) === 0) {
+			echo "<p><strong>You have not entered a valid email address. ".
+				"Please return to the previous page and try again.</strong></p>";
+			exit;
+		}
 		switch ($tSize) {
 			case 'xs':
 				$tSize = "extra small";
@@ -55,7 +67,8 @@ extract($_POST);
 			$allergies = "none";
 		}
 
-		$outputString = $fName."\t".$lName."\t".$age."\t".$gender."\t".$tSize."\t".$allergies."\n";
+		$outputString = $fName."\t".$lName."\t".$age."\t".$gender.
+			"\t".$phone."\t".$email."\t".$tSize."\t".$allergies."\n";
 
 		@$fp = fopen("applications.txt", 'ab');
 		flock($fp, LOCK_EX);
@@ -76,6 +89,8 @@ extract($_POST);
 		echo "<p>Name: ".$fName." ".$lName;
 		echo "<p>Age: ".$age;
 		echo "<p>Gender: ".$gender;
+		echo "<p>Phone Number: ".$phone;
+		echo "<p>Email Address: ".$email;
 		echo "<p>T-Shirt size: ".$tSize;
 		echo "<p>Allergies: ".$allergies;
 	?>
