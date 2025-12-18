@@ -1,7 +1,8 @@
 <?php
 // Create variables
-$eventFeedback = "{".htmlspecialchars(str_replace("~", "--", $_POST['feedback'])).
-	"~ ".$_POST['fName']." ".$_POST['lName']."}\n";
+$eventFeedback = htmlspecialchars(str_replace("|", "\\", str_replace(
+	"~", "-", $_POST['feedback'])))
+	." ~".$_POST['fName']." ".$_POST['lName']."|\n";
 ?>
 
 <!DOCTYPE html>

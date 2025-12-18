@@ -19,6 +19,7 @@
 
 <body>
 	<header><h1>Submitted Applications</h1></header>
+	<p><a href="view_feedback.php">View Feedback</a></p>
 	<?php
 		if (!file_exists("applications.txt")) {
 			echo "<p><strong>No applications have been submitted.<br/ >
@@ -53,8 +54,8 @@
 		
 		for ($j = 0; $j < $numOfApplicants; $j++) {
 			echo "<tr>";
-			for ($k = 0; $k < 8;$k++) {
-				echo "<td>".$applicants[$j][$k]."</td>";
+			foreach ($applicants[$j] as $field) {
+				echo "<td>".$field."</td>";
 			}
 			echo "</tr>";
 		}
