@@ -3,7 +3,7 @@
 	echo '<link href="form_styles.css" rel="stylesheet" />';
 ?>
 
-<h1 text-align="center">Application Form</h1>
+<h1>Application Form</h1>
 <form action="form_processed.php" method="post">
 	<table>
 		<tbody>

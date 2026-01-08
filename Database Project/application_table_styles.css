@@ -8,6 +8,7 @@ table, th, td {
 
 table {
 	margin: 50px;
+	margin-top: 20px;
 }
 
 th {

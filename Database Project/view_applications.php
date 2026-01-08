@@ -1,7 +1,8 @@
 <?php
 	require('header.php');
 	echo '<link href="application_table_styles.css" rel="stylesheet" />';
-	echo '<h1>Submitted Applications</h1>';
+	echo '<h1>Applicants</h1>';
+	echo '<p><a href="view_feedback.php">View Feedback</a></p>';
 
 	if (!file_exists("applications.txt")) {
 		echo "<p><strong>No applications have been submitted.<br/ >
