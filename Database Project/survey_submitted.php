@@ -3,29 +3,34 @@
 $eventFeedback = htmlspecialchars(str_replace("~", "--", $_POST['feedback'])).
 	"~ ".$_POST['fName']." ".$_POST['lName']."|\n";
 
-	require('page.php');
+	require("page.php");
+	require("exceptions.php");
 	$header = "";
-	$success = true;
+	
+	try {
+		if (!($fp = @fopen("feedback.txt", 'ab'))) {
+			throw new FileException();
+		}
+		if (!flock($fp, LOCK_EX)) {
+			throw new FileException();
+		}
+		if (!fwrite($fp, $eventFeedback)) {
+			throw new FileException();
+		}
 
-	@$fp = fopen("feedback.txt", 'ab');
-	flock($fp, LOCK_EX);
-
-	if ($fp) {
-		fwrite($fp, $eventFeedback);
 		flock($fp, LOCK_UN);
 		fclose($fp);
-	} else {
-		$content = "<p><strong>Unsuccessful submission.
-				Please try again later.";
-		$success = false;
-	}
 
-	if ($success) {
 		$content = "<p>".$_POST['feedback']."<p>
 			<p><strong>Your response has been recorded. Thank you for your feedback.</strong></p>";
 		$header = "Your Feedback";
 	}
-
-	$page = new Page([], $header, $content);
-	$page -> Display();
+	catch (FileException $fe) {
+		$content = "<p><strong>Unsuccessful submission.<br />
+			Please try again later.";
+	}
+	finally {
+		$page = new Page([], $header, $content);
+		$page -> Display();
+	}
 ?>
