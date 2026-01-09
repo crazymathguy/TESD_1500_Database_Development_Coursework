@@ -3,23 +3,29 @@
 $eventFeedback = htmlspecialchars(str_replace("~", "--", $_POST['feedback'])).
 	"~ ".$_POST['fName']." ".$_POST['lName']."|\n";
 
-	require('header.php');
-	echo '<h1>Your Feedback</h1>';
+	require('page.php');
+	$header = "";
+	$success = true;
 
 	@$fp = fopen("feedback.txt", 'ab');
 	flock($fp, LOCK_EX);
 
-	if (!$fp) {
-		echo "<p><strong>Unsuccessful submission.
+	if ($fp) {
+		fwrite($fp, $eventFeedback);
+		flock($fp, LOCK_UN);
+		fclose($fp);
+	} else {
+		$content = "<p><strong>Unsuccessful submission.
 				Please try again later.";
-		exit;
+		$success = false;
 	}
 
-	fwrite($fp, $eventFeedback);
-	flock($fp, LOCK_UN);
-	fclose($fp);
+	if ($success) {
+		$content = "<p>".$_POST['feedback']."<p>
+			<p><strong>Your response has been recorded. Thank you for your feedback.</strong></p>";
+		$header = "Your Feedback";
+	}
 
-	echo "<p>".$_POST['feedback']."<p>";
-	echo "<p><strong>Your response has been recorded. Thank you for your feedback.</strong></p>";
-	require('footer.php');
+	$page = new Page([], $header, $content);
+	$page -> Display();
 ?>

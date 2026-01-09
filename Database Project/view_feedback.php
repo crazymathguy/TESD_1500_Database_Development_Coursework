@@ -1,46 +1,53 @@
 <?php
-	require('header.php');
-	echo '<link href="feedback_table_styles.css" rel="stylesheet" />';
-	echo '<h1>Feedback</h1>';
-	echo '<p><a href="view_applications.php">View Applications</a></p>';
+	require('page.php');
+	$styles = ["feedback_table_styles"];
+	$header = "Feedback";
+	$content = '<p><a href="view_applications.php">View Applications</a></p>';
+	$success = true;
 
 	if (!file_exists("feedback.txt")) {
-		echo "<p><strong>No feedback has been submitted.<br/ >
-				Please try again later.</strong></p>";
-		exit;
-	}
-	$file = file_get_contents("feedback.txt");
-	$feedback = explode("|", $file);
-	$numOfApplicants = count($feedback);
-
-	if ($numOfApplicants == 0) {
-		echo "<p><strong>No feedback has been submitted.<br/ >
-				Please try again later.</strong></p>";
-		exit;
+		$content .= "<p><strong>No feedback has been submitted.<br/ >
+			Please try again later.</strong></p>";
+		$success = false;
 	}
 
-	feedbackType('Positive Experiences', ['fun', 'love', 'like', 'enjoy'], $feedback);
-	feedbackType('Negative Experiences', ['hate', 'scary', 'negative'], $feedback);
-	feedbackType('Criticisms', ['better', 'improve'], $feedback);
-	feedbackType('All Feedback', ['.'], $feedback);
+	if ($success) {
+		$file = file_get_contents("feedback.txt");
+		$feedback = explode("|", $file);
+		$numOfApplicants = count($feedback);
+
+		if ($numOfApplicants == 0) {
+			$content .= "<p><strong>No feedback has been submitted.<br/ >
+				Please try again later.</strong></p>";
+			$success = false;
+		}
+	}
+
+	if ($success) {
+		feedbackType('Positive Experiences', ['fun', 'love', 'like', 'enjoy'], $feedback);
+		feedbackType('Negative Experiences', ['hate', 'scary', 'negative', 'bad'], $feedback);
+		feedbackType('Criticisms', ['better', 'improve'], $feedback);
+		feedbackType('All Feedback', ['.'], $feedback);
+	}
 
 	function feedbackType($heading, $terms, $feedback) {
+		global $content;
 		$searchTerms = '/('.implode(')|(', $terms).')/i';
 		
-		echo "<h2>".$heading."</h2>";
-		echo "<table>\n";
+		$content .= "<h2>".$heading."</h2>\n<table>\n";
 		
 		$matches = preg_grep($searchTerms, $feedback);
 		foreach ($matches as $match) {
-			echo "<tr>";
+			$content .= "<tr>";
 			$entry = array_reverse(explode("~", $match));
 			foreach ($entry as $field) {
-				echo "<td>".$field."</td>";
+				$content .= "<td>".$field."</td>";
 			}
-			echo "</tr>";
+			$content .= "</tr>";
 		}
-		echo "</table>";
+		$content .= "</table>";
 	}
 
-	require('footer.php');
+	$page = new Page($styles, $header, $content);
+	$page -> Display();
 ?>

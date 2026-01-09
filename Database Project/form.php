@@ -1,9 +1,10 @@
 <?php
-	require('header.php');
-	echo '<link href="form_styles.css" rel="stylesheet" />';
-?>
+require('page.php');
 
-<h1>Application Form</h1>
+$styles = ["form_styles"];
+$header = "Application Form";
+
+$content = '
 <form action="form_processed.php" method="post">
 	<table>
 		<tbody>
@@ -68,9 +69,8 @@
 			</tr>
 		</tfoot>
 	</table>
-</form>
-</body>
+</form>';
 
-<?php
-	require('footer.php');
+	$page = new Page($styles, $header, $content);
+	$page -> Display();
 ?>
