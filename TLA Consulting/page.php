@@ -26,8 +26,8 @@ class Page
 		$this -> DisplayStyles();
 		echo "</head>\n<body>\n";
 		$this -> DisplayHeader();
-		$this -> DisplayMenu($this->$buttons);
-		echo $this->$content;
+		$this -> DisplayMenu($this->buttons);
+		echo $this->content;
 		$this -> DisplayFooter();
 		echo "</body>\n</html>\n";
 	}
@@ -65,7 +65,7 @@ class Page
 		echo "<!-- menu -->
 		<nav>";
 
-		while (list($name, $url) = each($buttons)) {
+		foreach($buttons as $name => $url) {
 			$this->DisplayButton($name, $url, 
 							 !$this->IsURLCurrentPage($url));
 		}
