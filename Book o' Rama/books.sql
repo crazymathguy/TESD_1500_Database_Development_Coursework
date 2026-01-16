@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 15, 2026 at 05:25 PM
+-- Generation Time: Jan 16, 2026 at 08:51 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -34,6 +34,16 @@ CREATE TABLE `books` (
   `Price` float(4,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`ISBN`, `Author`, `Title`, `Price`) VALUES
+('0-672-31509-2', 'Pruitt, et al.', 'Teach Yourself GIMP in 24 Hours', 27.49),
+('0-672-31697-8', 'Michael Morgan', 'Java 2 for Professional Developers', 38.49),
+('0-672-31745-1', 'Thomas Down', 'Installing Debian GNU/Linux', 27.49),
+('0-672-31769-9', 'Thomas Schenck', 'Caldera OpenLinux System Administration Unleashed', 54.99);
+
 -- --------------------------------------------------------
 
 --
@@ -44,6 +54,13 @@ CREATE TABLE `book_reviews` (
   `ISBN` char(13) NOT NULL,
   `Review` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `book_reviews`
+--
+
+INSERT INTO `book_reviews` (`ISBN`, `Review`) VALUES
+('0-672-31697-8', 'The Morgan book is clearly written and goes well beyond\r\n 	most of the basic Java books out there.');
 
 -- --------------------------------------------------------
 
@@ -58,6 +75,16 @@ CREATE TABLE `customers` (
   `City` char(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`CustomerID`, `Name`, `Address`, `City`) VALUES
+(1, 'Julie Smith', '25 Oak Street', 'Airport West'),
+(2, 'Alan Wong', '1/47 Haines Avenue', 'Box Hill'),
+(3, 'Michelle Arthur', '357 North Road', 'Yarraville'),
+(4, 'George Napolitano', '250 Olsens Road', 'Coburg');
+
 -- --------------------------------------------------------
 
 --
@@ -71,6 +98,16 @@ CREATE TABLE `orders` (
   `Date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `CustomerID`, `Amount`, `Date`) VALUES
+(1, 3, 69.98, '2007-04-02'),
+(2, 1, 49.99, '2007-04-15'),
+(3, 2, 74.98, '2007-04-19'),
+(4, 3, 24.99, '2007-05-01');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +119,17 @@ CREATE TABLE `order_items` (
   `ISBN` char(13) NOT NULL,
   `Quantity` tinyint(3) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`OrderID`, `ISBN`, `Quantity`) VALUES
+(1, '0-672-31697-8', 2),
+(2, '0-672-31769-9', 1),
+(3, '0-672-31509-2', 1),
+(3, '0-672-31769-9', 1),
+(4, '0-672-31745-1', 3);
 
 --
 -- Indexes for dumped tables
@@ -127,13 +175,13 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `CustomerID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `CustomerID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `OrderID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `OrderID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
