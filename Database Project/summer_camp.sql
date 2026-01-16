@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 15, 2026 at 06:13 PM
+-- Generation Time: Jan 16, 2026 at 09:40 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -32,6 +32,17 @@ CREATE TABLE `allergy_information` (
   `allergy` char(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `allergy_information`
+--
+
+INSERT INTO `allergy_information` (`applicant_id`, `allergy`) VALUES
+(1, 'Dairy'),
+(2, 'Gluten'),
+(4, 'Hay Fever'),
+(4, 'Peanuts'),
+(5, 'Sugar');
+
 -- --------------------------------------------------------
 
 --
@@ -47,9 +58,20 @@ CREATE TABLE `applicants` (
   `phone_number` varchar(15) NOT NULL,
   `email_address` varchar(256) NOT NULL,
   `shirt_size` char(2) NOT NULL,
-  `allergies` tinytext,
   `status` char(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `applicants`
+--
+
+INSERT INTO `applicants` (`applicant_id`, `first_name`, `last_name`, `age`, `gender`, `phone_number`, `email_address`, `shirt_size`, `status`) VALUES
+(1, 'Sean', 'Briggs', 17, 'Male', '+10123456789', 'sean@example.com', 'M', 'In Review'),
+(2, 'Thomas', 'Briggs', 14, 'Male', '+10001112222', 'thomas@example.com', 'S', 'In Review'),
+(3, 'Charlotte', 'Briggs', 12, 'Female', '+14729572901', 'charlotte@example.com', 'XS', 'Submitted'),
+(4, 'Someone', 'Else', 32, 'Other', '+19876543210', 'someone@example.com', 'XL', 'Rejected'),
+(5, 'Random', 'Person', 42, 'Female', '+12749551630', 'random@example.com', 'L', 'Accepted'),
+(6, 'Random', 'Different Person', 20, 'Male', '+13453453456', 'random2@example.com', 'XL', 'Rejected');
 
 -- --------------------------------------------------------
 
@@ -61,6 +83,29 @@ CREATE TABLE `feedback` (
   `review_id` int(10) UNSIGNED NOT NULL,
   `applicant_id` int(10) UNSIGNED NOT NULL,
   `feedback` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`review_id`, `applicant_id`, `feedback`) VALUES
+(1, 1, 'It was fun.'),
+(2, 2, 'I loved it so much!\r\nIt could be better if you had more dances.'),
+(3, 3, 'It was scary at first, but I did enjoy myself by the end.'),
+(4, 5, 'I am coming next year!'),
+(5, 4, 'I had a bad experience');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `new_table`
+--
+
+CREATE TABLE `new_table` (
+  `column1` int(11) NOT NULL,
+  `column2` char(1) NOT NULL,
+  `column3` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -87,6 +132,12 @@ ALTER TABLE `feedback`
   ADD KEY `applicant_id` (`applicant_id`);
 
 --
+-- Indexes for table `new_table`
+--
+ALTER TABLE `new_table`
+  ADD PRIMARY KEY (`column1`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -94,13 +145,13 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `applicant_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `applicant_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `review_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `review_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
