@@ -18,14 +18,14 @@ $content = '
 			</tr>
 			<tr>
 				<td>Age*</td>
-				<td><input type="number" name="age" min="12" max="100" required /></td>
+				<td><input type="number" name="age" min="12" max="99" required /></td>
 			</tr>
 			<tr>
 				<td>Gender</td>
 				<td><select name="gender">
 					<option></option>
-					<option value="m">Male</option>
-					<option value="f">Female</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
 				</select></td>
 			</tr>
 		</tbody>
@@ -44,11 +44,11 @@ $content = '
 				<td>T-shirt size*</td>
 				<td><select name="tSize" required>
 					<option></option>
-					<option value="xs">XS</option>
-					<option value="s">S</option>
-					<option value="m">M</option>
-					<option value="l">L</option>
-					<option value="xl">XL</option>
+					<option value="XS">XS</option>
+					<option value="S">S</option>
+					<option value="M">M</option>
+					<option value="L">L</option>
+					<option value="XL">XL</option>
 				</select></td>
 			</tr>
 		</tbody>
@@ -58,8 +58,8 @@ $content = '
 				<td><input type="checkbox" name="haveAllergies" /></td>
 			</tr>
 			<tr>
-				<td>If yes, please list</td>
-				<td><input type="text" name="allergies" /></td>
+				<td>If yes, please list<br />(separate with commas)</td>
+				<td><textarea name="allergies" rows="3"></textarea></td>
 			</tr>
 		</tbody>
 		<tfoot>

@@ -16,7 +16,7 @@ class Page {
 	}
 
 	public function Display() {
-		echo "<html>\n<head>\n";
+		echo "<!DOCTYPE html>\n<html>\n<head>\n";
 		$this -> DisplayTitle();
 		$this -> DisplayStyles();
 		echo "</head>\n<body>\n";
