@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 16, 2026 at 09:40 PM
+-- Generation Time: Jan 22, 2026 at 01:01 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -58,7 +58,7 @@ CREATE TABLE `applicants` (
   `phone_number` varchar(15) NOT NULL,
   `email_address` varchar(256) NOT NULL,
   `shirt_size` char(2) NOT NULL,
-  `status` char(9) NOT NULL
+  `status` char(9) NOT NULL DEFAULT 'Submitted'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -96,18 +96,6 @@ INSERT INTO `feedback` (`review_id`, `applicant_id`, `feedback`) VALUES
 (4, 5, 'I am coming next year!'),
 (5, 4, 'I had a bad experience');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `new_table`
---
-
-CREATE TABLE `new_table` (
-  `column1` int(11) NOT NULL,
-  `column2` char(1) NOT NULL,
-  `column3` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Indexes for dumped tables
 --
@@ -132,12 +120,6 @@ ALTER TABLE `feedback`
   ADD KEY `applicant_id` (`applicant_id`);
 
 --
--- Indexes for table `new_table`
---
-ALTER TABLE `new_table`
-  ADD PRIMARY KEY (`column1`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -145,7 +127,7 @@ ALTER TABLE `new_table`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `applicant_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `applicant_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `feedback`
