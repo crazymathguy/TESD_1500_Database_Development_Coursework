@@ -1,70 +1,90 @@
 <?php
 	require('page.php');
+	require('exceptions.php');
 	$styles = ["application_table_styles"];
 	$header = "Applicants";
-	$content = '<p><a href="view_feedback.php">View Feedback</a></p>';
-	$success = true;
 
-	if (!file_exists("applications.txt")) {
-		$content .= "<p><strong>No applications have been submitted.<br/ >
-			Please try again later.</strong></p>";
-		$success = false;
-	}
-	if ($success) {
-		$applications = file("applications.txt");
-		$numOfApplicants = count($applications);
+	try {
+		$db = new mysqli('localhost', 'web_user', 'summer_camp123', 'summer_camp');
+		if (mysqli_connect_errno()) {
+			throw new FileException();
+		}
 
-		if ($numOfApplicants == 0) {
-			$content .= "<p><strong>No applications have been submitted.<br/ >
+		$query = "SELECT * FROM applicants ORDER BY last_name";
+		$stmt = $db->prepare($query);
+		$stmt->execute();
+		$stmt->store_result();
+
+		$stmt->bind_result($id, $fName, $lName, $age, $gender, $phone, $email, $tSize, $status);
+
+		if ($stmt->num_rows == 0) {
+			$content = "<p><strong>No applications have been submitted.<br/ >
 				Please try again later.</strong></p>";
-			$success = false;
 		}
-	}
+		else {
+			$content = "<table>\n
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>ID Number</th>
+					<th>Age</th>
+					<th>Gender</th>
+					<th>Phone Number</th>
+					<th>Email Address</th>
+					<th>T-Shirt Size</th>
+					<th>Allergies</th>
+					<th>Status</th>
+				</tr>";
+			
+			while ($stmt->fetch()) {
+				$content .= "<tr>".
+				"<td>".$fName."</td>".
+				"<td>".$lName."</td>".
+				"<td>".$id."</td>".
+				"<td>".$age."</td>".
+				"<td>".$gender."</td>".
+				"<td>".$phone."</td>".
+				"<td>".$email."</td>".
+				"<td>".$tSize."</td>";
 
-	if ($success) {
-		for ($i = 0; $i < $numOfApplicants; $i++) {
-			$applicants[$i] = explode("\t", $applications[$i]);
-		}
-		usort($applicants, 'compareApplicants');
+				$allergyQuery = "SELECT allergy FROM allergy_information WHERE applicant_id = ?";
+				$allergyStmt = $db->prepare($allergyQuery);
+				$allergyStmt->bind_param('i', $id);
+				$allergyStmt->execute();
+				$allergyStmt->store_result();
+				$allergyStmt->bind_result($allergy);
+				
+				if ($allergyStmt->fetch()) {
+					$allergies = $allergy;
+				}
+				else {
+					$allergies = "none";
+				}
+				while ($allergyStmt->fetch()) {
+					$allergies .= ", ".$allergy;
+				}
+				$content .= "<td>".$allergies."</td>";
+				$content .= "<td>".$status."</td></tr>";
 
-		$content .= "<table>\n
-			<tr>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Age</th>
-				<th>Gender</th>
-				<th>Phone Number</th>
-				<th>Email Address</th>
-				<th>T-Shirt Size</th>
-				<th>Allergies</th>
-			</tr>";
-		
-		for ($j = 0; $j < $numOfApplicants; $j++) {
-			$content .= "<tr>";
-			for ($k = 0; $k < 8;$k++) {
-				$content .= "<td>".$applicants[$j][$k]."</td>";
+				$allergyStmt->free_result();
 			}
-			$content .= "</tr>";
+			$content .= "</table>";
 		}
-		$content .= "</table>";
-	}
 
-	function compareApplicants($x, $y) {
-		if ($x[1] < $y[1]) {
-			return -1;
-		} else if ($x[1] > $y[1]) {
-			return 1;
-		} else {
-			if ($x[0] < $y[0]) {
-				return -1;
-			} else if ($x[0] > $y[0]) {
-				return 1;
-			} else {
-				return 0;
-			}
-		}
+		$stmt->free_result();
+		$db->close();
 	}
-
-	$page = new Page($styles, $header, $content);
-	$page -> Display();
+	catch (FileException $f) {
+		$content = "<p><strong>An error occurred trying to connect to the database.<br />
+			Please try again later.</strong></p>";
+	}
+	catch (Exception $e) {
+		$content = "<p><strong>An unkown error occurred.<br /> Please try again later.<br />
+			Message: ".$e->getMessage()."</strong></p>";
+	}
+	finally {
+		$content = '<p><a href="view_feedback.php">View Feedback</a></p>'.$content;
+		$page = new Page($styles, $header, $content);
+		$page -> Display();
+	}
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 22, 2026 at 01:01 AM
+-- Generation Time: Jan 22, 2026 at 06:36 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.3.1
 
@@ -37,11 +37,15 @@ CREATE TABLE `allergy_information` (
 --
 
 INSERT INTO `allergy_information` (`applicant_id`, `allergy`) VALUES
-(1, 'Dairy'),
-(2, 'Gluten'),
-(4, 'Hay Fever'),
-(4, 'Peanuts'),
-(5, 'Sugar');
+(1, 'dairy'),
+(2, 'gluten'),
+(4, 'hay fever'),
+(4, 'peanuts'),
+(5, 'sugar'),
+(10, 'cats'),
+(10, 'dairy'),
+(10, 'dogs'),
+(10, 'gluten');
 
 -- --------------------------------------------------------
 
@@ -71,7 +75,8 @@ INSERT INTO `applicants` (`applicant_id`, `first_name`, `last_name`, `age`, `gen
 (3, 'Charlotte', 'Briggs', 12, 'Female', '+14729572901', 'charlotte@example.com', 'XS', 'Submitted'),
 (4, 'Someone', 'Else', 32, 'Other', '+19876543210', 'someone@example.com', 'XL', 'Rejected'),
 (5, 'Random', 'Person', 42, 'Female', '+12749551630', 'random@example.com', 'L', 'Accepted'),
-(6, 'Random', 'Different Person', 20, 'Male', '+13453453456', 'random2@example.com', 'XL', 'Rejected');
+(6, 'Random', 'Different Person', 20, 'Male', '+13453453456', 'random2@example.com', 'XL', 'Rejected'),
+(10, 'John', 'Doe', 20, 'Other', '+11111111111', 'jdoe@example.com', 'S', 'Submitted');
 
 -- --------------------------------------------------------
 
@@ -91,10 +96,11 @@ CREATE TABLE `feedback` (
 
 INSERT INTO `feedback` (`review_id`, `applicant_id`, `feedback`) VALUES
 (1, 1, 'It was fun.'),
-(2, 2, 'I loved it so much!\r\nIt could be better if you had more dances.'),
+(2, 2, 'I loved it so much!\nIt could be better if you had more dances.'),
 (3, 3, 'It was scary at first, but I did enjoy myself by the end.'),
 (4, 5, 'I am coming next year!'),
-(5, 4, 'I had a bad experience');
+(5, 4, 'I had a bad experience'),
+(7, 1, 'Oh, yeah!');
 
 --
 -- Indexes for dumped tables
@@ -127,13 +133,13 @@ ALTER TABLE `feedback`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `applicant_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `applicant_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `review_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `review_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
