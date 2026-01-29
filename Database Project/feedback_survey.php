@@ -1,9 +1,9 @@
 <?php
-require('page.php');
+require("lib/page.inc");
 $styles = ["form_styles"];
 $header = "Event Application";
 
-$content = '<form action="survey_submitted.php" method="post">
+$content = '<form action="lib/survey_submitted.php" method="post">
 	<table>
 		<tr>
 			<td>First Name*</td>

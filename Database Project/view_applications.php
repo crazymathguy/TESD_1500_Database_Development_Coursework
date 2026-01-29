@@ -1,11 +1,12 @@
 <?php
-	require('page.php');
-	require('exceptions.php');
+require("lib/database_connect.inc");
+require("lib/page.inc");
+require("lib/exceptions.inc");
 	$styles = ["application_table_styles"];
 	$header = "Applicants";
 
 	try {
-		$db = new mysqli('localhost', 'web_user', 'summer_camp123', 'summer_camp');
+		$db = new mysqli($hostName, $userName, $password, $dbName);
 		if (mysqli_connect_errno()) {
 			throw new FileException();
 		}

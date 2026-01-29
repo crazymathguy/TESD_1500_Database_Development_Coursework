@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+h2 {
+	margin-left: 40px;
+}
+
+table, td {
+	padding: 6px;
+}
+
+table {
+	margin: 10px 40px 40px;
+}
+
+tr {
+	background-color: rgb(230, 230, 245);
+}

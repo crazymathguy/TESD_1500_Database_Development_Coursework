@@ -1,11 +1,11 @@
 <?php
-require('page.php');
+require("lib/page.inc");
 
 $styles = ["form_styles"];
 $header = "Application Form";
 
 $content = '
-<form action="form_processed.php" method="post">
+<form action="lib/form_processed.php" method="post">
 	<table>
 		<tbody>
 			<tr>

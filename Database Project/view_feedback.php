@@ -1,10 +1,11 @@
 <?php
-	require('page.php');
+require("lib/database_connect.inc")
+require("lib/page.inc");
 	$styles = ["feedback_table_styles"];
 	$header = "Feedback";
 
 	try {
-		$db = new mysqli('localhost', 'web_user', 'summer_camp123', 'summer_camp');
+		$db = new mysqli($hostName, $userName, $password, $dbName);
 		if (mysqli_connect_errno()) {
 			throw new FileException();
 		}
