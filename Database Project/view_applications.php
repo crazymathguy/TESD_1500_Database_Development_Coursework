@@ -1,16 +1,16 @@
 <?php
-require("lib/database_connect.inc");
 require("lib/page.inc");
-require("lib/exceptions.inc");
-	$styles = ["application_table_styles"];
-	$header = "Applicants";
 
-	try {
-		$db = new mysqli($hostName, $userName, $password, $dbName);
-		if (mysqli_connect_errno()) {
-			throw new FileException();
-		}
+$styles = ["application_table_styles"];
+$header = "Applicants";
 
+try {
+	require("lib/login.inc");
+
+	if ($status !== "admin") {
+		$content = "<p><strong>You are not authorized to view this page.</strong></p>";
+	} 
+	else {
 		$query = "SELECT * FROM applicants ORDER BY last_name";
 		$stmt = $db->prepare($query);
 		$stmt->execute();
@@ -75,17 +75,22 @@ require("lib/exceptions.inc");
 		$stmt->free_result();
 		$db->close();
 	}
-	catch (FileException $f) {
-		$content = "<p><strong>An error occurred trying to connect to the database.<br />
-			Please try again later.</strong></p>";
-	}
-	catch (Exception $e) {
-		$content = "<p><strong>An unkown error occurred.<br /> Please try again later.<br />
-			Message: ".$e->getMessage()."</strong></p>";
-	}
-	finally {
-		$content = '<p><a href="view_feedback.php">View Feedback</a></p>'.$content;
-		$page = new Page($styles, $header, $content);
-		$page -> Display();
-	}
+}
+catch (InvalidFormException $e) {
+	$content = "<p><strong>You have not entered a valid username.<br />
+		Please try again.</strong></p>";
+}
+catch (FileException $f) {
+	$content = "<p><strong>An error occurred trying to connect to the database.<br />
+		Please try again later.</strong></p>";
+}
+catch (Exception $e) {
+	$content = "<p><strong>An unkown error occurred.<br /> Please try again later.<br />
+		Message: ".$e->getMessage()."</strong></p>";
+}
+finally {
+	$content = '<p><a href="view_feedback.php">View Feedback</a></p>'.$content;
+	$page = new Page($styles, $header, $content);
+	$page -> Display();
+}
 ?>

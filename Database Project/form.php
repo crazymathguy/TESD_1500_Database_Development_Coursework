@@ -62,6 +62,20 @@ $content = '
 				<td><textarea name="allergies" rows="3"></textarea></td>
 			</tr>
 		</tbody>
+		<tbody>
+			<tr>
+				<td colspan="2" style="text-align: center;">
+					Please create a username and password to protect your information</td>
+			</tr>
+			<tr>
+				<td>Username*</td>
+				<td><input type="text" name="username" required /></td>
+			</tr>
+			<tr>
+				<td>Password*</td>
+				<td><input type="password" name="password" required /></td>
+			</tr>
+		</tbody>
 		<tfoot>
 			<tr>
 				<td colspan="2" style="text-align: center;">
