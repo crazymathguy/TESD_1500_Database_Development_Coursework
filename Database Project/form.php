@@ -5,7 +5,7 @@ $styles = ["form_styles"];
 $header = "Application Form";
 
 $content = '
-<form action="lib/form_processed.php" method="post">
+<form action="lib/form_processed.php" method="post" enctype="multipart/form-data">
 	<table>
 		<tbody>
 			<tr>
@@ -62,6 +62,11 @@ $content = '
 				<td><textarea name="allergies" rows="3"></textarea></td>
 			</tr>
 		</tbody>
+		<tbody>
+			<input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
+			<tr>
+				<td>Upload a Letter of Recommendation*</td>
+				<td><input type="file" name="the_file" id="the_file" required /></td>
 		<tbody>
 			<tr>
 				<td colspan="2" style="text-align: center;">

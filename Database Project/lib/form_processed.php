@@ -49,6 +49,49 @@ try {
 		default:
 			throw new InvalidFormException('shirt size');
 	}
+
+	if ($_FILES['the_file']['error'] > 0) {
+		switch ($_FILES['the_file']['error']) {
+			case 1:
+				$error_message = 'File exceeded upload_max_filsize.';
+				break;
+			case 2:
+				$error_message = 'File exceeded max_file_size.';
+				break;
+			case 3:
+				$error_message = 'File only partially uploaded.';
+				break;
+			case 4:
+				$error_message = 'No file uploaded.';
+				break;
+			case 6:
+				$error_message = 'Cannot upload file: No temp directory specified.';
+				break;
+			case 7:
+				$error_message = 'Upload failed: Cannot write to disk.';
+				break;
+			case 8:
+				$error_message = 'A PHP extension blocked the file upload.';
+				break;
+		}
+		throw new InvalidFileException($error_message);
+	}
+
+	// put the file where we'd like it
+	$uploaded_file = 'files/'.$fName.'_'.$lName.'_'.$_FILES['the_file']['name'];
+
+	if (is_uploaded_file($_FILES['the_file']['tmp_name'])) {
+		if (!move_uploaded_file($_FILES['the_file']['tmp_name'], $uploaded_file)) {
+			$error_message = 'Could not move file to destination directory.'
+			throw new InvalidFileException($error_message);
+		}
+	}
+	else {
+		$error_message = 'Possible file upload attack. Filename: ';
+		$error_message .= $_FILES['the_file']['name'];
+		throw new InvalidFileException($error_message);
+	}
+
 	$query = "SELECT applicant_id FROM login_info
 	WHERE username = ?";
 	$stmt = $db->prepare($query);
@@ -111,6 +154,10 @@ try {
 catch (InvalidFormException $ife) {
 	$content = "<p><strong>You have not entered a valid ".$ife->getMessage().".<br />
 		Please return to the previous page and try again.</strong></p>";
+}
+catch (InvalidFileException $upe) {
+	$content = "<p><strong>Problem: ".$upe->getMessage()."<br />
+		Please return to the previous page and try a new file.</strong></p>";
 }
 catch (FileException $f) {
 	$content = "<p><strong>An error occurred trying to connect to the database.<br />

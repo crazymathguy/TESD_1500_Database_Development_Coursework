@@ -74,6 +74,19 @@ try {
 
 		$stmt->free_result();
 		$db->close();
+
+		$dir = 'uploads/';
+		$files1 = scandir($dir);
+
+		echo '<p>Upload directory is '.$dir.'</p>';
+		echo '<p>Directory Listing in alphabetical order, ascending:</p><ul>';
+
+		foreach ($files1 as $file) {
+			if ($file != "." && $file != "..") {
+				echo '<li>'.$file.'</li>';
+			}
+		}
+		echo '</ul>';
 	}
 }
 catch (InvalidFormException $e) {
